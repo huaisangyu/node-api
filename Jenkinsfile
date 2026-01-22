@@ -8,20 +8,19 @@ pipeline {
     }
 
     parameters {
-        gitParameter(name: 'BRANCH', type: 'PT_BRANCH', defaultValue: 'main', description: '选择要部署的分支', useRepository: 'git@github.com:huaisangyu/node-api.git')
+        string(name: 'Branch', defaultValue: 'main', description: '选择要部署的分支')
     }
 
     stages {
-
         stage('拉取代码') {
             steps {
-                echo "在宿主机拉取最新代码，分支：${params.BRANCH}"
+                echo "在宿主机拉取最新代码，分支：${params.Branch}"
                 sh """
                     ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
                         if [ ! -d ${DEPLOY_PATH} ]; then
-                            git clone -b ${params.BRANCH} git@github.com:huaisangyu/node-api.git ${DEPLOY_PATH}
+                            git clone -b ${params.Branch} git@github.com:huaisangyu/node-api.git ${DEPLOY_PATH}
                         else
-                            cd ${DEPLOY_PATH} && git fetch --all && git checkout ${params.BRANCH} && git reset --hard origin/${params.BRANCH}
+                            cd ${DEPLOY_PATH} && git fetch --all && git checkout ${params.Branch} && git reset --hard origin/${params.Branch}
                         fi
                     '
                 """
@@ -63,7 +62,7 @@ pipeline {
 
     post {
         success {
-            echo "部署成功 ✅ 分支：${params.BRANCH}"
+            echo "部署成功 ✅ 分支：${params.Branch}"
         }
         failure {
             echo "部署失败 ❌"
