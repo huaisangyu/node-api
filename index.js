@@ -3,7 +3,7 @@
  * @Author       : Sherlock
  * @Date         : 2026-01-20 14:23:29
  * @LastEditors  : Sherlock
- * @LastEditTime : 2026-01-20 14:23:31
+ * @LastEditTime : 2026-01-23 19:07:17
  * @FilePath     : /index.js
  */
 const express = require('express')
@@ -25,7 +25,7 @@ app.get('/api/user', (req, res)=>{
         message: '成功返回用户数据',
         data: {
             age: 18,
-            name: '淮桑榆',
+            name: '测试家的淮桑榆',
             bobbies: ["编程", "服务器部署"]
         }
     }
